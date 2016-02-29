@@ -1,0 +1,32 @@
+.slide {
+    padding-top: 50px;
+}
+
+.slide h2 {
+    margin-bottom: 20px;
+}
+
+pre[class*="language-"]{
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+
+.slide.prism pre[class*="language-"].small code{
+    line-height: 28px;
+    font-size: 23px;
+}
+
+.slide pre.pale {
+    opacity: 0.6;
+}
+
+.slide p {
+    margin-bottom: 20px;
+}
+
+table.middle td {
+    vertical-align: middle;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

@@ -48,6 +48,640 @@
         </div>
     </section>
 
+    <section class="slide prism" itemscope itemtype="http://schema.org/Person">
+        <h2>Who am I?</h2>
+
+        <h3 itemprop="jobTitle">JavaScript developer</h3>
+
+        <p itemscope itemtype="https://schema.org/Organization">
+            <span itemprop="name">Daftcode</span>,
+            <span itemprop="location">Warsaw</span>
+        </p>
+
+        <img src="pictures/logo-daftcode.png" alt="Daftcode"/>
+    </section>
+
+    <section class="slide shout">
+        <h2 class="shout">JS Promise</h2>
+    </section>
+
+    <section class="slide prism">
+        <h2>Promise</h2>
+        <blockquote style="margin-top: 100px; margin-left: 20px">
+            <p>
+                A promise represents the eventual result of an asynchronous operation.
+            </p>
+            <a href="https://promisesaplus.com/">Promises/A+</a>
+        </blockquote>
+    </section>
+
+    <section class="slide prism">
+        <h2>Examples of async operations:</h2>
+        <ul>
+            <li>AJAX Requests</li>
+            <pre class="language-javascript small">
+                <code>
+                    $.get('ajax/test.html', (data)=>{
+                        console.log(data);
+                    });
+                </code>
+            </pre>
+            <li>Database requests (IndexedDB)</li>
+            <pre class="language-javascript small">
+                <code>
+                    let db, request = indexedDB.open('TestDatabase');
+                    request.onsuccess = (evt)=>{
+                        db = request.result;
+                    };
+                </code>
+            </pre>
+            <li>Node.js File System API</li>
+            <pre class="language-javascript small">
+                <code>
+                    fs.readFile('/etc/hosts', (err, data)=>{
+                        console.log(data);
+                    });
+                </code>
+            </pre>
+        </ul>
+    </section>
+
+    <section class="slide prism">
+        <h2>Callback - a classic approach</h2>
+        <pre class="language-javascript">
+            <code>
+                sthAsync((result) => {
+                    console.log(result);
+                });
+            </code>
+        </pre>
+
+        <pre class="language-javascript small pale">
+            <code>
+                function sthAsync(<mark>callback</mark>){
+                    setTimeout(() => {
+                        <mark>callback</mark>('done!');
+                    }, 200);
+                }
+            </code>
+        </pre>
+    </section>
+
+    <section class="slide prism">
+        <h2>The same with Promise</h2>
+        <pre class="language-javascript">
+            <code>
+                 sthAsync()<mark>.then</mark>((result) => {
+                     console.log(result);
+                 });
+            </code>
+        </pre>
+        <pre class="language-javascript small pale">
+            <code>
+                function sthAsync(){
+                    return <mark>new Promise</mark>((resolve) => {
+                        setTimeout(() => {
+                            resolve('done!');
+                        }, 200);
+                    });
+                }
+            </code>
+        </pre>
+    </section>
+
+    <section class="slide prism">
+        <h2>Difference?</h2>
+
+        <h3><strong>With callback</strong></h3>
+        <pre class="language-javascript">
+            <code>
+                sthAsync((result) => {
+                });
+            </code>
+        </pre>
+
+        <h3><strong>With promise</strong></h3>
+        <pre class="language-javascript">
+            <code>
+                sthAsync().then((result) => {
+                });
+            </code>
+        </pre>
+    </section>
+
+    <section class="slide prism">
+        <h2>Promises/A+</h2>
+        <p>
+            <a href="https://promisesaplus.com/">https://promisesaplus.com/</a>
+        </p>
+
+        <h2 style="margin-top: 30px;">Many implementations</h2>
+        <ul>
+            <li><a href="https://github.com/kriskowal/q">Q</a></li>
+            <li><a href="https://github.com/tildeio/rsvp.js/">rsvp</a></li>
+            <li><a href="https://github.com/cujojs/when">when</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise"><strong>JS build-in ES2015 (ES6)</strong></a></li>
+            <li style="margin-top: 15px;"><a href="https://api.jquery.com/category/deferred-object/">jQuery.Deferred</a></li>
+            <li><a href="https://docs.angularjs.org/api/ng/service/$q">Angular.$q</a></li>
+        </ul>
+    </section>
+
+    <section class="slide prism">
+        <img class="cover" src="pictures/can-i-use.png" alt="Can i use">
+    </section>
+
+    <section class="slide prism">
+        <h2>Promise API (ES 2015)</h2>
+        <ul style="margin-bottom: 0;">
+            <li class="next">Promise.prototype.<mark>then</mark>(onFulfilled, onRejected)</li>
+            <li class="next">
+                Promise.prototype.<mark>catch</mark>(onRejected)<br/>
+                <span style="color: #777">=== Promise.prototype.then(null, onRejected)</span>
+            </li>
+        </ul>
+        <div class="next">
+            <h3><strong>Constructor</strong></h3>
+            <pre class="language-javascript small line-numbers">
+                <code>
+                     let myPromise = new <mark class="important">Promise</mark>((<mark>resolve</mark>, <mark>reject</mark>) => {
+                         <mark class="comment">// do sth sync or async</mark>
+                         if(<mark class="comment">/* there is an error */</mark>){
+                             <mark>reject(reason);</mark>
+                         } else {
+                             <mark>resolve(value);</mark>
+                         }
+                     });
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="slide prism">
+        <h2>Promise API (ES 2015)</h2>
+        <ul>
+            <li class="next">Promise.<mark>resolve</mark>(value)</li>
+            <li class="next">Promise.<mark>reject</mark>(value)</li>
+            <li class="next">Promise.<mark>all</mark>(arrayOfPromises)</li>
+            <li class="next">Promise.<mark>race</mark>(arrayOfPromises)</li>
+        </ul>
+
+        <a class="next" href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise">
+            API Reference at MDN
+        </a>
+    </section>
+
+    <section class="slide prism">
+        <h2>Terminology</h2>
+        <h3>
+            <mark class="next">promise,</mark>
+            <mark class="next">thenable,</mark>
+            <mark class="next">value,</mark>
+            <mark class="next">reason</mark>
+        </h3>
+        <h3>
+            <span class="next">states: <mark>pending,</mark></span>
+            <span class="next"><mark>fulfilled</mark> (with value),</span>
+            <span class="next"><mark>rejected</mark> (with reason)</span>
+        </h3>
+        <pre class="language-javascript line-numbers" style="margin-top: 30px;">
+            <code>
+                let p = new <mark>Promise</mark>((resolve)=>{
+                    setTimeout(resolve, 2000);
+                }); <mark class="comment">//<mark>pending</mark> for 2s</mark>
+
+                let p2 = Promise.resolve(<mark>value</mark>); <mark class="comment">//<mark>fulfilled</mark></mark>
+                let p3 = Promise.reject(<mark>reason</mark>); <mark class="comment">//<mark>rejected</mark></mark>
+
+                let p4 = $.get('foo');  <mark class="comment">// this is <mark>thenable</mark></mark>
+            </code>
+        </pre>
+    </section>
+
+    <section class="slide prism">
+        <h2>Take a breath...</h2>
+        <h3><strong>So far we know:</strong></h3>
+        <ul>
+            <li>What the <mark>Promise</mark> is</li>
+            <li>There is a standard <mark>Promises/A+</mark> (and many implementations)</li>
+            <li>What to do, when we have got a promise (use <mark>then</mark> function)</li>
+            <li>How to create a Promise</li>
+        </ul>
+
+        <h3><strong>Questions?</strong></h3>
+    </section>
+
+    <section class="slide shout">
+        <h2 class="shout">Chaining</h2>
+    </section>
+
+    <section class="slide prism">
+        <h2>Chaining with callbacks</h2>
+        <pre class="language-javascript small line-numbers">
+            <code>
+                doA((AValue)=>{
+                    doB((BValue)=>{
+                        doC((CValue)=>{
+                            dpD({
+                                doE({
+                                    doF({
+                                        doG({
+
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                }); //pyramid of doom
+            </code>
+        </pre>
+    </section>
+
+    <section class="slide prism">
+        <h2>Chaining with promises</h2>
+        <pre class="language-javascript small line-numbers">
+            <code>
+                doA() // returns promise
+                    .then((AValue)=>{
+                        // we can do sth with AValue
+                        return doB();
+                    })
+                    .then((BValue)=>{
+                        return doC();
+                    })
+                    .then((CValue)=>{
+                        return doD();
+                    })
+                    .then(()=>{
+
+                    })
+                    .then(()=>{
+
+                    });
+            </code>
+        </pre>
+    </section>
+
+    <section class="slide prism">
+        <h2>Chaining with promises</h2>
+        <pre class="language-javascript small line-numbers">
+            <code>
+                doA()
+                  .then(doB)
+                  .then(doC)
+                  .then(doD)
+                  .then(doE)
+                  .then(doF);
+            </code>
+        </pre>
+    </section>
+
+    <section class="slide prism">
+        <h2>How it works?</h2>
+        <mark>then</mark> returns a new Promise.
+        <pre class="language-javascript small next">
+            <code>
+                let promise2 = promise1.then(onFulfilled, onRejected)
+                            // promise1.catch(onRejected)
+            </code>
+        </pre>
+        <ul>
+            <li class="next">
+                If <mark>onFulfilled</mark> or <mark>onRejected</mark> returns a value (or undefined), <br/>
+                promise2 is fulfilled with the </makr>value</mark>.
+            </li>
+            <li class="next">
+                If <mark>onFulfilled</mark> or <mark>onRejected</mark> returns another promise (or thenable), <br/>
+                promise2 behave like the returned one.
+            </li>
+            <li class="next">
+                If <mark>onFulfilled</mark> or <mark>onRejected</mark> throws an exception, <br/>
+                promise2 is rejected with the <mark>exception</mark>.
+            </li>
+        </ul>
+    </section>
+
+    <section class="slide prism">
+        <h2>How it works?</h2>
+        <mark>then</mark> returns a new Promise.
+        <pre class="language-javascript small">
+            <code>
+                let promise2 = promise1.then(onFulfilled, onRejected)
+                            // promise1.catch(onRejected)
+            </code>
+        </pre>
+        <ul>
+            <li class="next">
+                If <mark>onFulfilled</mark> is not a function and promise1 is fulfilled, <br/>
+                promise2 is fulfilled with the same value.
+            </li>
+            <li class="next">
+                If <mark>onRejected</mark> is not a function and promise1 is rejected, <br/>
+                promise2 is rejected with the same reason.
+            </li>
+        </ul>
+    </section>
+
+    <section class="slide prism">
+        <h2 style="font-size: 40px;">#1 - callback returns a value</h2>
+        <iframe width="100%" height="200" src="//jsfiddle.net/mbychawski/8t1u4p62/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+        <iframe width="100%" height="200" src="//jsfiddle.net/mbychawski/gg9oh11c/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+    </section>
+
+    <section class="slide prism">
+        <h2 style="font-size: 40px;">#2 - callback returns a promise or thenable</h2>
+        <iframe width="100%" height="200" src="//jsfiddle.net/mbychawski/8xx24n9v/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+        <iframe width="100%" height="200" src="//jsfiddle.net/mbychawski/c43pwwaz/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+    </section>
+
+    <section class="slide prism">
+        <h2 style="font-size: 40px;">#3 - callback throws an exception</h2>
+        <iframe width="100%" height="400" src="//jsfiddle.net/mbychawski/ydrxdwvq/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+    </section>
+
+    <section class="slide prism">
+        <h2 style="font-size: 40px;">#4 - skip <mark>then</mark> with undefined callbacks</h2>
+        <iframe width="100%" height="400" src="//jsfiddle.net/mbychawski/66Lu3fL1/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+    </section>
+
+    <section class="slide prism">
+        <h2>Common mistake #1</h2>
+        <pre class="language-javascript small">
+            <code>
+                doA().then(() => {
+                    doB.then(() => {
+                        doC.then(() => {
+                            doD.then(() => {
+                            });
+                        });
+                    });
+                });
+            </code>
+        </pre>
+        <pre class="language-javascript small next">
+            <code>
+                doA().then(() => {
+                    return doB();
+                }).then(() => {
+                    return doC();
+                }).then(() => {
+                    return doD();
+                });
+            </code>
+        </pre>
+    </section>
+
+    <section class="slide prism">
+        <h2>Common mistake #1</h2>
+
+        <h3><strong>Sometimes you may need it:</strong></h3>
+        <pre class="language-javascript">
+            <code>
+                getUser(userId).then((user)=>{
+                    return getUserPosts(user).then((userPosts)=>{
+                        // here you can use both user and userPosts
+                    });
+                });
+            </code>
+        </pre>
+    </section>
+
+    <section class="slide prism">
+        <h2>Common mistake #2</h2>
+        <pre class="language-javascript">
+            <code>
+                Promise.resolve().then(()=>{
+                	JSON.parse('foo!');
+                });
+            </code>
+        </pre>
+        <table class="middle no-borders">
+            <tr class="next">
+                <td>Safari</td>
+                <td><img src="./pictures/mistake-2-safari.png" /></td>
+            </tr>
+            <tr class="next">
+                <td>Firefox</td>
+                <td><img src="./pictures/mistake-2-firefox.png" /></td>
+            </tr>
+            <tr class="next">
+                <td>Chrome</td>
+                <td><img src="./pictures/mistake-2-chrome.png" /></td>
+            </tr>
+        </table>
+    </section>
+
+    <section class="slide prism">
+        <h2>Common mistake #2</h2>
+        <pre class="language-javascript">
+            <code>
+                Promise.resolve().then(()=>{
+                	JSON.parse('foo!');
+                }).catch((reason)=>{
+                    console.log('There is an error:', reason);
+                });
+            </code>
+        </pre>
+    </section>
+
+    <section class="slide prism">
+        <h2>Common mistake #3</h3>
+        <pre class="language-javascript">
+            <code>
+                somePromise().then(()=>{
+                    someOtherPromise();
+                }).then(()=>{
+                    // someOtherPromise() is not resolved yet!
+                });
+            </code>
+        </pre>
+        <pre class="language-javascript next">
+            <code>
+                somePromise().then(()=>{
+                    return someOtherPromise();
+                }).then(()=>{
+                    // someOtherPromise() is not resolved yet!
+                });
+            </code>
+        </pre>
+    </section>
+
+    <section class="slide prism">
+        <h2>Be careful with jQuery!</h3>
+        <iframe width="100%" height="350" src="//jsfiddle.net/mbychawski/zbz8k6uk/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+        <p class="note next">
+            $.Deferred in jQuery >= 3 implements Promises/A+ standard.<br/>
+            <a href="https://blog.jquery.com/2016/01/14/jquery-3-0-beta-released/">read this blog post.</a></p>
+    </section>
+
+    <section class="slide prism">
+        <h3 class="shout">Use Cases</h3>
+    </section>
+
+    <section class="slide prism">
+        <h2>Sequence with delay</h3>
+        <pre class="language-javascript line-numbers small">
+            <code>
+                setTimeout(()=>{
+                    console.log('1.');
+                    setTimeout(()=>{
+                        console.log('2.');
+                        setTimeout(()=>{
+                            console.log('3.');
+                            setTimeout(()=>{
+                                console.log('4.');
+                            }, delayT);
+                        }, delayT);
+                    }, delayT);
+                }, delayT);
+            </code>
+        </pre>
+    </section>
+
+    <section class="slide prism">
+        <h2>Sequence with delay</h3>
+        <pre class="language-javascript line-numbers small">
+            <code>
+                function delay(t){
+                    return function(value){
+                        return new Promise((resolve)=>{
+                            setTimeout(()=>{
+                                resolve(value);
+                            }, t);
+                        });
+                    }
+                }
+            </code>
+        </pre>
+        <pre class="language-javascript small pale">
+            <code>
+                let promiseFactory300ms = delay(300);
+
+                let promise = promiseFactory300ms('foo');
+            </code>
+        </pre>
+    </section>
+
+    <section class="slide prism">
+        <h2>Sequence with delay</h3>
+        <pre class="language-javascript line-numbers small">
+            <code>
+                let mDelayFunc = delay(delayT);
+
+                Promise.resolve().then(()=>{
+                    console.log('1.');
+                    return 'foo!';
+                })
+                .then(mDelayFunc)
+                .then((gotFoo)=>{
+                    console.log('2.', gotFoo);
+                })
+                .then(mDelayFunc)
+                .then(()=>{
+                    console.log('3.');
+                });
+            </code>
+        </pre>
+    </section>
+
+    <section class="slide prism">
+        <h2>Sequence with delay</h3>
+        <iframe width="100%" height="400" src="//jsfiddle.net/mbychawski/0cuhanr3/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+    </section>
+
+    <section class="slide prism">
+        <h2>Templates cache</h3>
+        <pre class="language-javascript line-numbers small">
+            <code>
+                let _cache = {};
+
+                function load(names){
+                    let promises = _.map(names, (name)=>{
+                        if(!_.has(_cache, name)){
+                            _cache[name] = get(name).then(JSON.parse);
+                        }
+                        return _cache[name];
+                    });
+
+                    return Promise.all(promises);
+                }
+            </code>
+        </pre>
+    </section>
+
+    <section class="slide prism">
+        <h2>Templates cache</h3>
+        <iframe width="100%" height="400" src="//jsfiddle.net/mbychawski/7ht95z3o/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+    </section>
+
+    <section class="slide prism">
+        <h3 class="shout">Puzzle</h3>
+    </section>
+
+    <section class="slide prism">
+        <h2>Templates cache</h3>
+        <pre class="language-javascript line-numbers small">
+            <code>
+                something_ok()
+                    .then((v)=>{
+                        return somethingElse_ok(v);
+                    })
+                    .then((v)=>{
+                        fooOne_err(v);
+                    })
+                    .then(something_ok, somethingElse_ok)
+                    .then(anotherOne_err())
+                    .then(something_ok, somethingElse_ok);
+            </code>
+        </pre>
+    </section>
+
+    <section class="slide prism">
+        <h2>Puzzle</h3>
+        <iframe width="100%" height="400" src="//jsfiddle.net/mbychawski/rscvsrxy/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+    </section>
+
+    <section class="slide prism">
+        <h2>Links</h2>
+        <ul>
+            <li>
+                <a href="https://promisesaplus.com/">
+                    https://promisesaplus.com/
+                </a>
+            </li>
+            <li>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">
+                    https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+                </a>
+            </li>
+            <li>
+                <a href="http://pouchdb.com/2015/05/18/we-have-a-problem-with-promises.html">
+                    http://pouchdb.com/2015/05/18/we-have-a-problem-with-promises.html
+                </a>
+            </li>
+            <li>
+                <a href="http://www.html5rocks.com/en/tutorials/es6/promises/">
+                    http://www.html5rocks.com/en/tutorials/es6/promises/
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.jquery.com/2016/01/14/jquery-3-0-beta-released/">
+                    https://blog.jquery.com/2016/01/14/jquery-3-0-beta-released/
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/watch?v=hf1T_AONQJU&feature=youtu.be">
+                    https://www.youtube.com/watch?v=hf1T_AONQJU&feature=youtu.be
+                </a>
+            </li>
+            <li>
+                <a href="https://jakearchibald.com/2014/es7-async-functions/">
+                    https://jakearchibald.com/2014/es7-async-functions/
+                </a>
+            </li>
+        </ul>
+    </section>
+
 
 
     <div class="progress"></div>
