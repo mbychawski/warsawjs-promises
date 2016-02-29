@@ -2,6 +2,7 @@
     top: auto;
     bottom: 0;
     position: fixed;
+    z-index: 3;
 }
 
 .badge.badge-down a {
