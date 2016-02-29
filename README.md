@@ -1,11 +1,12 @@
-# WarsawJS Slides: Template
-
-![Logo](/pictures/logo/logo-light.png)
+# WarsawJS: JS Promises
 
 ---
 
-JavaScript Yellow Color: `#f0db4f`
-WarsawJS Red Color: `#f7302f`
+[<< Slides >>](http://mbychawski.github.io/warsawjs-promises)
+
+---
+
+![Logo](/pictures/logo/logo-light.png)
 
 ---
 
