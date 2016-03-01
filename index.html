@@ -681,6 +681,10 @@
                     .then( something_ok, somethingElse_ok);
             </code>
         </pre>
+    </section>
+
+    <section class="slide prism">
+        <h2>Puzzle</h3>
         <div class="promise-flow">
             <div class="next"><span style="width: 228px; left: 0px;">something_ok(undefined)</span></div>
             <div class="next"><span style="width: 330px; left: 0px;">anotherOne_err(undefined)</span></div>
@@ -689,6 +693,20 @@
             <div class="next"><span style="width: 228px; left: 571px;">something_ok(undefined)</span></div>
             <div class="next"><span style="width: 305px; left: 797px;">something_ok(something_ok_value)</span></div>
         </div>
+        <pre class="language-javascript line-numbers small">
+            <code>
+                something_ok()
+                    .then((v)=>{
+                        return somethingElse_ok(v);
+                    })
+                    .then((v)=>{
+                        fooOne_err(v);
+                    })
+                    .then( something_ok, somethingElse_ok )
+                    .then( anotherOne_err() )
+                    .then( something_ok, somethingElse_ok);
+            </code>
+        </pre>
     </section>
 
     <section class="slide prism">
