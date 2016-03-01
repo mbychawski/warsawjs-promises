@@ -500,7 +500,7 @@
                 somePromise().then(()=>{
                     return someOtherPromise();
                 }).then(()=>{
-                    // someOtherPromise() is not resolved yet!
+                    // someOtherPromise() is now resolved :D
                 });
             </code>
         </pre>
@@ -615,11 +615,27 @@
     </section>
 
     <section class="slide prism">
+        <h2>What brings ES7?</h3>
+        <pre class="language-javascript line-numbers small">
+            <code>
+                async function loadSth(){
+                    try {
+                        let data = await getJSON('someData.json');
+                        return data;
+                    } catch (err) {
+                        // ---
+                    }
+                }
+            </code>
+        </pre>
+    </section>
+
+    <section class="slide prism">
         <h3 class="shout">Puzzle</h3>
     </section>
 
     <section class="slide prism">
-        <h2>Templates cache</h3>
+        <h2>Puzzle</h3>
         <pre class="language-javascript line-numbers small">
             <code>
                 something_ok()
@@ -629,11 +645,19 @@
                     .then((v)=>{
                         fooOne_err(v);
                     })
-                    .then(something_ok, somethingElse_ok)
-                    .then(anotherOne_err())
-                    .then(something_ok, somethingElse_ok);
+                    .then( something_ok, somethingElse_ok )
+                    .then( anotherOne_err() )
+                    .then( something_ok, somethingElse_ok);
             </code>
         </pre>
+        <div class="promise-flow">
+            <div class="next"><span style="width: 228px; left: 0px;">something_ok(undefined)</span></div>
+            <div class="next"><span style="width: 330px; left: 0px;">anotherOne_err(undefined)</span></div>
+            <div class="next"><span style="width: 345px; left: 227px;">somethingElse_ok(something_ok_value)</span></div>
+            <div class="next"><span style="width: 325px; left: 571px;">fooOne_err(somethingElse_ok_value)</span></div>
+            <div class="next"><span style="width: 228px; left: 571px;">something_ok(undefined)</span></div>
+            <div class="next"><span style="width: 305px; left: 797px;">something_ok(something_ok_value)</span></div>
+        </div>
     </section>
 
     <section class="slide prism">

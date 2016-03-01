@@ -30,3 +30,26 @@ table.middle td {
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
+.promise-flow{
+    font-family: monospace;
+    font-size: 15px;
+    line-height: 20px;
+    overflow-x: scroll;
+    padding-bottom: 10px;
+}
+
+.promise-flow div{
+}
+
+.promise-flow div>span{
+    margin-top: 2px;
+    display: inline-block;
+    position: relative;
+    border-left: 2px solid #000;
+    border-right: 2px solid #000;
+    border-top: 1px dotted #000;
+    border-bottom: 1px dotted #000;
+    padding-left: 10px;
+    padding-right: 10px;
+}
