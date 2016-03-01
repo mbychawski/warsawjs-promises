@@ -78,16 +78,16 @@
     <section class="slide prism">
         <h2>Examples of async operations:</h2>
         <ul>
-            <li>AJAX Requests</li>
-            <pre class="language-javascript small">
+            <li class="next">AJAX Requests</li>
+            <pre class="language-javascript small next">
                 <code>
                     $.get('ajax/test.html', (data)=>{
                         console.log(data);
                     });
                 </code>
             </pre>
-            <li>Database requests (IndexedDB)</li>
-            <pre class="language-javascript small">
+            <li class="next">Database requests (IndexedDB)</li>
+            <pre class="language-javascript small next">
                 <code>
                     let db, request = indexedDB.open('TestDatabase');
                     request.onsuccess = (evt)=>{
@@ -95,8 +95,8 @@
                     };
                 </code>
             </pre>
-            <li>Node.js File System API</li>
-            <pre class="language-javascript small">
+            <li class="next">Node.js File System API</li>
+            <pre class="language-javascript small next">
                 <code>
                     fs.readFile('/etc/hosts', (err, data)=>{
                         console.log(data);
@@ -116,7 +116,7 @@
             </code>
         </pre>
 
-        <pre class="language-javascript small pale">
+        <pre class="language-javascript small pale next">
             <code>
                 function sthAsync(<mark>callback</mark>){
                     setTimeout(() => {
@@ -136,7 +136,7 @@
                  });
             </code>
         </pre>
-        <pre class="language-javascript small pale">
+        <pre class="language-javascript small pale next">
             <code>
                 function sthAsync(){
                     return <mark>new Promise</mark>((resolve) => {
@@ -178,7 +178,9 @@
         <h2 style="margin-top: 30px;">Many implementations</h2>
         <ul>
             <li><a href="https://github.com/kriskowal/q">Q</a></li>
-            <li><a href="https://github.com/tildeio/rsvp.js/">rsvp</a></li>
+            <li><a href="https://github.com/tildeio/rsvp.js/">rsvp</a>
+                (subset - polyfill <a href="https://www.npmjs.com/package/es6-promise">es6-promise</a>)
+            </li>
             <li><a href="https://github.com/cujojs/when">when</a></li>
             <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise"><strong>JS build-in ES2015 (ES6)</strong></a></li>
             <li style="margin-top: 15px;"><a href="https://api.jquery.com/category/deferred-object/">jQuery.Deferred</a></li>
@@ -233,15 +235,15 @@
     <section class="slide prism">
         <h2>Terminology</h2>
         <h3>
+            <span class="next">states: <mark>pending,</mark></span>
+            <span class="next"><mark>fulfilled</mark> (with value),</span>
+            <span class="next"><mark>rejected</mark> (with reason)</span>
+        </h3>
+        <h3>
             <mark class="next">promise,</mark>
             <mark class="next">thenable,</mark>
             <mark class="next">value,</mark>
             <mark class="next">reason</mark>
-        </h3>
-        <h3>
-            <span class="next">states: <mark>pending,</mark></span>
-            <span class="next"><mark>fulfilled</mark> (with value),</span>
-            <span class="next"><mark>rejected</mark> (with reason)</span>
         </h3>
         <pre class="language-javascript line-numbers" style="margin-top: 30px;">
             <code>
@@ -281,10 +283,10 @@
                 doA((AValue)=>{
                     doB((BValue)=>{
                         doC((CValue)=>{
-                            dpD({
-                                doE({
-                                    doF({
-                                        doG({
+                            dpD(()=>{
+                                doE(()=>{
+                                    doF(()=>{
+                                        doG(()=>{
 
                                         });
                                     });
@@ -339,6 +341,7 @@
     <section class="slide prism">
         <h2>How it works?</h2>
         <mark>then</mark> returns a new Promise.
+        <p class="note">The Promise Resolution Procedure</p>
         <pre class="language-javascript small next">
             <code>
                 let promise2 = promise1.then(onFulfilled, onRejected)
@@ -384,24 +387,52 @@
 
     <section class="slide prism">
         <h2 style="font-size: 40px;">#1 - callback returns a value</h2>
+        <pre class="language-javascript small">
+            <code>
+                let promise2 = promise1.then(onFulfilled, onRejected)
+                            // promise1.catch(onRejected)
+            </code>
+        </pre>
         <iframe width="100%" height="200" src="//jsfiddle.net/mbychawski/8t1u4p62/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
-        <iframe width="100%" height="200" src="//jsfiddle.net/mbychawski/gg9oh11c/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+        <iframe width="100%" height="200" src="//jsfiddle.net/mbychawski/kmdap352/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
     </section>
 
     <section class="slide prism">
         <h2 style="font-size: 40px;">#2 - callback returns a promise or thenable</h2>
+        <pre class="language-javascript small">
+            <code>
+                let promise2 = promise1.then(onFulfilled, onRejected)
+                            // promise1.catch(onRejected)
+            </code>
+        </pre>
         <iframe width="100%" height="200" src="//jsfiddle.net/mbychawski/8xx24n9v/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
         <iframe width="100%" height="200" src="//jsfiddle.net/mbychawski/c43pwwaz/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
     </section>
 
     <section class="slide prism">
         <h2 style="font-size: 40px;">#3 - callback throws an exception</h2>
+        <pre class="language-javascript small">
+            <code>
+                let promise2 = promise1.then(onFulfilled, onRejected)
+                            // promise1.catch(onRejected)
+            </code>
+        </pre>
         <iframe width="100%" height="400" src="//jsfiddle.net/mbychawski/ydrxdwvq/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
     </section>
 
     <section class="slide prism">
         <h2 style="font-size: 40px;">#4 - skip <mark>then</mark> with undefined callbacks</h2>
+        <pre class="language-javascript small">
+            <code>
+                let promise2 = promise1.then(onFulfilled, onRejected)
+                            // promise1.catch(onRejected)
+            </code>
+        </pre>
         <iframe width="100%" height="400" src="//jsfiddle.net/mbychawski/66Lu3fL1/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+    </section>
+
+    <section class="slide shout">
+        <h2 class="shout">Common mistakes</h2>
     </section>
 
     <section class="slide prism">
@@ -598,7 +629,7 @@
                 function load(names){
                     let promises = _.map(names, (name)=>{
                         if(!_.has(_cache, name)){
-                            _cache[name] = get(name).then(JSON.parse);
+                            _cache[name] = get(name).then(_.template);
                         }
                         return _cache[name];
                     });

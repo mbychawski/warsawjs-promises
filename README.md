@@ -6,7 +6,7 @@
 
 ---
 
-![Logo](/pictures/logo/logo-light.png)
+![Logo](pictures/logo/logo-light.png)
 
 ---
 
