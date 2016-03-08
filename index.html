@@ -336,94 +336,145 @@
 
     <section class="slide prism">
         <h2>How it works?</h2>
-        <mark>then</mark> returns a new Promise.
-        <p class="note">The Promise Resolution Procedure</p>
+        <p class="note">
+            The Promise Resolution Procedure<br/>
+            <mark>then</mark> returns a new Promise.
+        </p>
         <pre class="language-javascript small next">
             <code>
                 let promise2 = promise1.then(onFulfilled, onRejected)
                             // promise1.catch(onRejected)
             </code>
         </pre>
-        <ul>
-            <li class="next">
-                If <mark>onFulfilled</mark> or <mark>onRejected</mark> returns a value (or undefined), <br/>
-                promise2 is fulfilled with the </makr>value</mark>.
-            </li>
-            <li class="next">
-                If <mark>onFulfilled</mark> or <mark>onRejected</mark> returns another promise (or thenable), <br/>
-                promise2 behave like the returned one.
-            </li>
-            <li class="next">
-                If <mark>onFulfilled</mark> or <mark>onRejected</mark> throws an exception, <br/>
-                promise2 is rejected with the <mark>exception</mark>.
-            </li>
-        </ul>
+        <p class="next">
+            If <mark>onFulfilled</mark> or <mark>onRejected</mark> returns a value (or undefined), <br/>
+            promise2 is fulfilled with the </makr>value</mark>.
+        </p>
+        <pre class="language-javascript small next">
+            <code>
+                let promise2 = promise1.then((promise1Value)=>{
+                    return 'foo!';
+                });
+            </code>
+        </pre>
     </section>
 
     <section class="slide prism">
         <h2>How it works?</h2>
-        <mark>then</mark> returns a new Promise.
+        <p class="note">
+            The Promise Resolution Procedure<br/>
+            <mark>then</mark> returns a new Promise.
+        </p>
         <pre class="language-javascript small">
             <code>
                 let promise2 = promise1.then(onFulfilled, onRejected)
                             // promise1.catch(onRejected)
             </code>
         </pre>
-        <ul>
-            <li class="next">
-                If <mark>onFulfilled</mark> is not a function and promise1 is fulfilled, <br/>
-                promise2 is fulfilled with the same value.
-            </li>
-            <li class="next">
-                If <mark>onRejected</mark> is not a function and promise1 is rejected, <br/>
-                promise2 is rejected with the same reason.
-            </li>
-        </ul>
+        <p>
+            If <mark>onFulfilled</mark> or <mark>onRejected</mark> returns another promise (or thenable), <br/>
+            promise2 behave like the returned one.
+        </p>
+        <pre class="language-javascript small next">
+            <code>
+                let promise2 = promise1.then((promise1Value)=>{
+                    let thenable = $.get('foo.html');
+                    return thenable;
+                });
+            </code>
+        </pre>
+    </section>
+
+    <section class="slide prism">
+        <h2>How it works?</h2>
+        <p class="note">
+            The Promise Resolution Procedure<br/>
+            <mark>then</mark> returns a new Promise.
+        </p>
+        <pre class="language-javascript small">
+            <code>
+                let promise2 = promise1.then(onFulfilled, onRejected)
+                            // promise1.catch(onRejected)
+            </code>
+        </pre>
+        <p>
+            If <mark>onFulfilled</mark> or <mark>onRejected</mark> throws an exception, <br/>
+            promise2 is rejected with the <mark>exception</mark>.
+        </p>
+        <pre class="language-javascript small next">
+            <code>
+                let promise2 = promise1.then((promise1Value)=>{
+                    throw new Error('foo!');
+                });
+            </code>
+        </pre>
+    </section>
+
+    <section class="slide prism">
+        <h2>How it works?</h2>
+        <p class="note">
+            The Promise Resolution Procedure<br/>
+            <mark>then</mark> returns a new Promise.
+        </p>
+        <pre class="language-javascript small">
+            <code>
+                let promise2 = promise1.then(onFulfilled, onRejected)
+                            // promise1.catch(onRejected)
+            </code>
+        </pre>
+        <p>
+            If <mark>onFulfilled</mark> is not a function and promise1 is fulfilled, <br/>
+            promise2 is fulfilled with the same value.
+        </p>
+        <pre class="language-javascript small next">
+            <code>
+                let promise2 = promise1.then();
+            </code>
+        </pre>
+    </section>
+
+    <section class="slide prism">
+        <h2>How it works?</h2>
+        <p class="note">
+            The Promise Resolution Procedure<br/>
+            <mark>then</mark> returns a new Promise.
+        </p>
+        <pre class="language-javascript small">
+            <code>
+                let promise2 = promise1.then(onFulfilled, onRejected)
+                            // promise1.catch(onRejected)
+            </code>
+        </pre>
+        <p>
+            If <mark>onRejected</mark> is not a function and promise1 is rejected, <br/>
+            promise2 is rejected with the same reason.
+        </p>
+        <pre class="language-javascript small next">
+            <code>
+                let promise2 = promise1.then();
+            </code>
+        </pre>
     </section>
 
     <section class="slide prism">
         <h2 style="font-size: 40px;">#1 - callback returns a value</h2>
-        <pre class="language-javascript small">
-            <code>
-                let promise2 = promise1.then(onFulfilled, onRejected)
-                            // promise1.catch(onRejected)
-            </code>
-        </pre>
         <iframe width="100%" height="200" src="//jsfiddle.net/mbychawski/8t1u4p62/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
         <iframe width="100%" height="200" src="//jsfiddle.net/mbychawski/kmdap352/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
     </section>
 
     <section class="slide prism">
         <h2 style="font-size: 40px;">#2 - callback returns a promise or thenable</h2>
-        <pre class="language-javascript small">
-            <code>
-                let promise2 = promise1.then(onFulfilled, onRejected)
-                            // promise1.catch(onRejected)
-            </code>
-        </pre>
         <iframe width="100%" height="200" src="//jsfiddle.net/mbychawski/8xx24n9v/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
         <iframe width="100%" height="200" src="//jsfiddle.net/mbychawski/c43pwwaz/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
     </section>
 
     <section class="slide prism">
         <h2 style="font-size: 40px;">#3 - callback throws an exception</h2>
-        <pre class="language-javascript small">
-            <code>
-                let promise2 = promise1.then(onFulfilled, onRejected)
-                            // promise1.catch(onRejected)
-            </code>
-        </pre>
         <iframe width="100%" height="400" src="//jsfiddle.net/mbychawski/ydrxdwvq/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
     </section>
 
     <section class="slide prism">
         <h2 style="font-size: 40px;">#4 - skip <mark>then</mark> with undefined callbacks</h2>
-        <pre class="language-javascript small">
-            <code>
-                let promise2 = promise1.then(onFulfilled, onRejected)
-                            // promise1.catch(onRejected)
-            </code>
-        </pre>
         <iframe width="100%" height="400" src="//jsfiddle.net/mbychawski/66Lu3fL1/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
     </section>
 
