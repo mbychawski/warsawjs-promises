@@ -54,7 +54,7 @@
         <h3 itemprop="jobTitle">JavaScript developer</h3>
 
         <p itemscope itemtype="https://schema.org/Organization">
-            <span itemprop="name">Daftcode</span>,
+            <a href="http://daftcode.pl/"><span itemprop="name">Daftcode</span></a>,
             <span itemprop="location">Warsaw</span>
         </p>
 
@@ -103,6 +103,7 @@
         <pre class="language-javascript next" style="margin-top: 40px;">
             <code>
                 var promise = sthAsync();
+                // sthAsync is done?
             </code>
         </pre>
     </section>
@@ -151,9 +152,12 @@
             <h2>The same with Promise</h2>
             <pre class="language-javascript">
                 <code>
-                     sthAsync()<mark>.then</mark>((result) => {
+                     let promise = sthAsync();
+                     promise.then((result) => {
                          console.log(result);
                      });
+
+                     // ofc. sthAsync().then(... is ok :)
                 </code>
             </pre>
         </span>
@@ -165,18 +169,21 @@
         <p>
             <a href="https://promisesaplus.com/">https://promisesaplus.com/</a>
         </p>
-
-        <h2 style="margin-top: 30px;">Many implementations</h2>
-        <ul>
-            <li><a href="https://github.com/kriskowal/q">Q</a></li>
-            <li><a href="https://github.com/tildeio/rsvp.js/">rsvp</a>
-                (subset - polyfill <a href="https://www.npmjs.com/package/es6-promise">es6-promise</a>)
-            </li>
-            <li><a href="https://github.com/cujojs/when">when</a></li>
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise"><strong>JS build-in ES2015 (ES6)</strong></a></li>
-            <li style="margin-top: 15px;"><a href="https://api.jquery.com/category/deferred-object/">jQuery.Deferred</a></li>
-            <li><a href="https://docs.angularjs.org/api/ng/service/$q">Angular.$q</a></li>
-        </ul>
+        <span class="next">
+            <h2 style="margin-top: 30px;">Many implementations</h2>
+            <p>
+                <a href="https://github.com/kriskowal/q">Q</a>,
+                <a href="https://github.com/tildeio/rsvp.js/">rsvp</a>,
+                <a href="https://github.com/cujojs/when">when</a>
+            </p>
+        </span>
+        <p class="next">
+            <a href="https://api.jquery.com/category/deferred-object/">jQuery.Deferred</a>,
+            <a href="https://docs.angularjs.org/api/ng/service/$q">Angular.$q</a>
+        </p>
+        <a class="next" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">
+            <strong>ECMAScript 2015 build-in</strong>
+        </a>
     </section>
 
     <section class="slide prism">
@@ -184,70 +191,68 @@
     </section>
 
     <section class="slide prism">
-        <h2>Promise API (ES 2015)</h2>
-        <ul style="margin-bottom: 0;">
-            <li class="next">Promise.prototype.<mark>then</mark>(onFulfilled, onRejected)</li>
-            <li class="next">
-                Promise.prototype.<mark>catch</mark>(onRejected)<br/>
-                <span style="color: #777">=== Promise.prototype.then(null, onRejected)</span>
-            </li>
-        </ul>
-        <div class="next">
-            <h3><strong>Constructor</strong></h3>
-            <pre class="language-javascript small line-numbers">
-                <code>
-                     let myPromise = new <mark class="important">Promise</mark>((<mark>resolve</mark>, <mark>reject</mark>) => {
-                         <mark class="comment">// do sth sync or async</mark>
-                         if(<mark class="comment">/* there is an error */</mark>){
-                             <mark>reject(reason);</mark>
-                         } else {
-                             <mark>resolve(value);</mark>
-                         }
-                     });
-                </code>
-            </pre>
-        </div>
-    </section>
-
-    <section class="slide prism">
-        <h2>Promise API (ES 2015)</h2>
-        <ul>
-            <li class="next">Promise.<mark>resolve</mark>(value)</li>
-            <li class="next">Promise.<mark>reject</mark>(value)</li>
-            <li class="next">Promise.<mark>all</mark>(arrayOfPromises)</li>
-            <li class="next">Promise.<mark>race</mark>(arrayOfPromises)</li>
-        </ul>
-
-        <a class="next" href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise">
-            API Reference at MDN
-        </a>
-    </section>
-
-    <section class="slide prism">
         <h2>Terminology</h2>
-        <h3>
-            <span class="next">states: <mark>pending,</mark></span>
-            <span class="next"><mark>fulfilled</mark> (with value),</span>
-            <span class="next"><mark>rejected</mark> (with reason)</span>
-        </h3>
         <h3>
             <mark class="next">promise,</mark>
             <mark class="next">thenable,</mark>
             <mark class="next">value,</mark>
             <mark class="next">reason</mark>
         </h3>
-        <pre class="language-javascript line-numbers" style="margin-top: 30px;">
+        <h3>
+            <span class="next">states: <mark>pending,</mark></span>
+            <span class="next"><mark>fulfilled</mark> (with value),</span>
+            <span class="next"><mark>rejected</mark> (with reason)</span>
+        </h3>
+        <img class="next" src="./pictures/promise-graph.png" style="margin-top: 30px;" />
+    </section>
+
+    <section class="slide prism">
+        <h2>Promise API (ES 2015)</h2>
+        <pre class="language-javascript small">
             <code>
-                let p = new <mark>Promise</mark>((resolve)=>{
-                    setTimeout(resolve, 2000);
-                }); <mark class="comment">//<mark>pending</mark> for 2s</mark>
-
-                let p2 = Promise.resolve(<mark>value</mark>); <mark class="comment">//<mark>fulfilled</mark></mark>
-                let p3 = Promise.reject(<mark>reason</mark>); <mark class="comment">//<mark>rejected</mark></mark>
-
-                let p4 = $.get('foo');  <mark class="comment">// this is <mark>thenable</mark></mark>
+                var promise = sthAsync();
             </code>
         </pre>
+        <ul style="margin-bottom: 0;">
+            <li class="next">promise.<mark>then</mark>(onFulfilled, onRejected)</li>
+            <li class="next">promise.<mark>catch</mark>(onRejected)<br/>
+                <span style="color: #777">=== Promise.prototype.then(null, onRejected)</span>
+            </li>
+        </ul>
+        <pre class="language-javascript small line-numbers next">
+            <code>
+                promise.then(
+                    (value)=>{
+                        // inside onFulfilled
+                    },
+                    (reason)=>{
+                        // inside onRejected
+                    });
+            </code>
+        </pre>
+    </section>
+
+    <section class="slide prism">
+        <h2>Promise API (ES 2015)</h2>
+        <h3><strong>Constructor</strong></h3>
+        <pre class="language-javascript small line-numbers">
+            <code>
+                 let myPromise = new <mark class="important">Promise</mark>((<mark>resolve</mark>, <mark>reject</mark>) => {
+                     <mark class="comment">// do sth sync or async</mark>
+                     if(<mark class="comment">/* there is an error */</mark>){
+                         <mark>reject(reason);</mark>
+                     } else {
+                         <mark>resolve(value);</mark>
+                     }
+                 });
+            </code>
+        </pre>
+        <ul>
+            <li class="next">Promise.<mark>resolve</mark>(value)</li>
+            <li class="next">Promise.<mark>reject</mark>(value)</li>
+            <li class="next">Promise.<mark>all</mark>(arrayOfPromises)</li>
+            <li class="next">Promise.<mark>race</mark>(arrayOfPromises)</li>
+        </ul>
     </section>
 
     <section class="slide prism">
