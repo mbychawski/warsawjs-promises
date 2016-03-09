@@ -61,6 +61,10 @@
         <img src="pictures/logo-daftcode.png" alt="Daftcode"/>
     </section>
 
+    <section class="slide shout">
+        <h2 class="shout">JS Promise</h2>
+    </section>
+
     <section class="slide prism">
         <h2>Before we start</h2>
         <p>ECMAScript 2015 == ECMAScript 6 == ES6</p>
@@ -86,10 +90,6 @@
                 let variableInBlockScope;
             </code>
         </pre>
-    </section>
-
-    <section class="slide shout">
-        <h2 class="shout">JS Promise</h2>
     </section>
 
     <section class="slide prism">
@@ -347,7 +347,7 @@
             </code>
         </pre>
         <p class="next">
-            If <mark>onFulfilled</mark> or <mark>onRejected</mark> returns a value (or undefined), <br/>
+            If onFulfilled or onRejected <mark>returns a value</mark> (or undefined), <br/>
             promise2 is fulfilled with the </makr>value</mark>.
         </p>
         <pre class="language-javascript small next">
@@ -372,7 +372,7 @@
             </code>
         </pre>
         <p>
-            If <mark>onFulfilled</mark> or <mark>onRejected</mark> returns another promise (or thenable), <br/>
+            If onFulfilled or onRejected <mark>returns another promise</mark> (or thenable), <br/>
             promise2 behave like the returned one.
         </p>
         <pre class="language-javascript small next">
@@ -398,7 +398,7 @@
             </code>
         </pre>
         <p>
-            If <mark>onFulfilled</mark> or <mark>onRejected</mark> throws an exception, <br/>
+            If onFulfilled or onRejected <mark>throws an exception</mark>, <br/>
             promise2 is rejected with the <mark>exception</mark>.
         </p>
         <pre class="language-javascript small next">
